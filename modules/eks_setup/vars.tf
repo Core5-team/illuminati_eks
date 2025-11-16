@@ -72,3 +72,16 @@ variable "node_instance_types" {
   description = "The types of EC2 instances to run in the node group"
   type        = list(string)
 }
+
+#---------------------------------------------------------workflow_setup
+
+variable "vpc_id" {
+  description = "The id of vpc where our application will be deployed"
+  type        = string
+}
+
+variable "public_route_table_id" {
+  description = "The id of the public route table where our nat and elb will be deployed"
+  type        = string
+}
+

@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-central-1"
+  region = var.region
 }
 
 
@@ -10,4 +10,12 @@ terraform {
       version = "6.14.1"
     }
   }
+
+  backend "s3" {
+    bucket  = "terraform-state-illuminati-bucket-frankfurt"
+    key     = "eks-setup/terraform.tfstate"
+    region  = "eu-central-1"
+    encrypt = true
+  }
+
 }

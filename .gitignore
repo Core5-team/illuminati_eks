@@ -1,1 +1,3 @@
 **/*.tfstate
+
+development_varibles.tfvars

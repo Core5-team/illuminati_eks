@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "cluster_autoscaler_document" {
 }
 
 resource "aws_iam_role" "cluster_autoscaler_role" {
-  name               = "${aws_eks_cluster.eks.name}-cluster-autoscaler"
+  name               = "${var.cluster_name}-cluster-autoscaler"
   assume_role_policy = data.aws_iam_policy_document.cluster_autoscaler_document.json
 }
 
@@ -56,7 +56,7 @@ resource "aws_iam_role_policy_attachment" "cluster_autoscaler_policy_attachment"
 }
 
 resource "aws_eks_pod_identity_association" "cluster_autoscaler" {
-  cluster_name    = aws_eks_cluster.eks.name
+  cluster_name    = var.cluster_name
   namespace       = "kube-system"
   service_account = "cluster-autoscaler"
   role_arn        = aws_iam_role.cluster_autoscaler_role.arn
@@ -65,7 +65,7 @@ resource "aws_eks_pod_identity_association" "cluster_autoscaler" {
 resource "helm_release" "cluster_autoscaler" {
   name = "autoscaler"
 
-  repository = "https://github.com/The-A-Team-organization/illuminati_eks"
+  repository = "https://https://github.com/The-A-Team-organization/illuminati_eks/tree/TAT-83-Set-up-Cluster-Autoscaling-in-the-EKS-cluster"
   chart      = "cluster_autoscaler"
   namespace  = "kube-system"
 
@@ -75,6 +75,6 @@ resource "helm_release" "cluster_autoscaler" {
     },
     {
       name  = ".Values.clusterName"
-      value = aws_eks_cluster.eks.name
+      value = var.cluster_name
   }]
 }
