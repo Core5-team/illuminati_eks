@@ -11,11 +11,4 @@ terraform {
     }
   }
 
-  backend "s3" {
-    bucket  = "terraform-state-illuminati-bucket-frankfurt"
-    key     = "eks-setup/terraform.tfstate"
-    region  = "eu-central-1"
-    encrypt = true
-  }
-
 }
