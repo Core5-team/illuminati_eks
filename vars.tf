@@ -88,5 +88,4 @@ variable "public_route_table_id" {
 variable "region" {
   description = "The region tag where our eks cluster will be deployed"
   type        = string
-  default     = "eu-central-1"
 }

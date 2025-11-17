@@ -62,10 +62,11 @@ resource "aws_eks_pod_identity_association" "cluster_autoscaler" {
   role_arn        = aws_iam_role.cluster_autoscaler_role.arn
 }
 
+#TODO
 resource "helm_release" "cluster_autoscaler" {
   name = "autoscaler"
 
-  repository = "./helm"
+  repository = ""
   chart      = "cluster_autoscaler"
   version    = "0.1.0"
   namespace  = "kube-system"

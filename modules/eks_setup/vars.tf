@@ -85,3 +85,7 @@ variable "public_route_table_id" {
   type        = string
 }
 
+variable "region" {
+  description = "The region tag where our eks cluster will be deployed"
+  type        = string
+}
