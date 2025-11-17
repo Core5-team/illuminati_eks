@@ -65,16 +65,17 @@ resource "aws_eks_pod_identity_association" "cluster_autoscaler" {
 resource "helm_release" "cluster_autoscaler" {
   name = "autoscaler"
 
-  repository = "https://https://github.com/The-A-Team-organization/illuminati_eks/tree/TAT-83-Set-up-Cluster-Autoscaling-in-the-EKS-cluster"
+  repository = "./helm/"
   chart      = "cluster_autoscaler"
+  version    = "0.1.0"
   namespace  = "kube-system"
 
   set = [{
-    name  = ".Values.serviceAccount"
-    value = aws_eks_pod_identity_association.cluster_autoscaler.service_account
+    name  = "serviceAccountName"
+    value = "cluster-autoscaler"
     },
     {
-      name  = ".Values.clusterName"
+      name  = "clusterName"
       value = var.cluster_name
   }]
 }

@@ -1,3 +1,6 @@
 **/*.tfstate
 
 development_varibles.tfvars
+.terraform
+helm/cluster_autoscaler
+helm/ingress_controller
