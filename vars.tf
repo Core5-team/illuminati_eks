@@ -75,15 +75,15 @@ variable "node_instance_types" {
 
 #---------------------------------------------------------workflow_setup
 
-# variable "vpc_id" {
-#   description = "The id of vpc where our application will be deployed"
-#   type        = string
-# }
+variable "vpc_id" {
+  description = "The id of vpc where our application will be deployed"
+  type        = string
+}
 
-# variable "public_route_table_id" {
-#   description = "The id of the public route table where our nat and elb will be deployed"
-#   type        = string
-# }
+variable "public_route_table_id" {
+  description = "The id of the public route table where our nat and elb will be deployed"
+  type        = string
+}
 
 variable "region" {
   description = "The region tag where our eks cluster will be deployed"
