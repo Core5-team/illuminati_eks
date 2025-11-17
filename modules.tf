@@ -18,8 +18,8 @@ module "eks_setup" {
   #---------------------------------------------------------nodes_config_vars---------------------
   node_instance_types = var.node_instance_types
   #---------------------------------------------------------workflow_setup------------------------
-  vpc_id                = data.aws_vpc.vpc_id.id
-  public_route_table_id = data.aws_route_table.public_route_table.id
+  vpc_id                = var.vpc_id
+  public_route_table_id = var.public_route_table_id
 }
 
 module "eks_workflow_setup" {
