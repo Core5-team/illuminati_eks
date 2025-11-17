@@ -5,4 +5,3 @@ development_varibles.tfvars
 
 helm/ingress_controller/
 
-helm/aws_lb_controller/
