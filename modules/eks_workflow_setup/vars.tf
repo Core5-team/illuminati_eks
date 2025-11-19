@@ -23,3 +23,9 @@ variable "region" {
   description = "The region tag where our EKS cluster will be deployed"
   type        = string
 }
+
+variable "vpc_id" {
+  description = "The id of vpc where our application will be deployed"
+  type        = string
+}
+
