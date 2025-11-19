@@ -20,6 +20,7 @@ module "eks_setup" {
   #---------------------------------------------------------workflow_setup------------------------
   vpc_id                = var.vpc_id
   public_route_table_id = var.public_route_table_id
+  region                = var.region
 }
 
 module "eks_workflow_setup" {
@@ -28,4 +29,6 @@ module "eks_workflow_setup" {
   cluster_certificate_authority = module.eks_setup.cluster_certificate_authority
   cluster_token                 = module.eks_setup.cluster_token
   cluster_name                  = module.eks_setup.cluster_name
+  vpc_id                        = var.vpc_id
+  region                        = var.region
 }
