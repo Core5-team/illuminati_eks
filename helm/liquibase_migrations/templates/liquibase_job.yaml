@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: liquibase
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      volumes:
+      - name: liquibase-changelog-volume
+        emptyDir:
+          medium: Memory 
+          sizeLimit: 500Mi   
+      containers:
+      - name: liquibase-run
+        image: "liquibase/liquibase:4.25.1"
+        # command: ["/bin/sh"]
+        # args:  ["-c", "cd ..; ls -a"]
+        command: ["/bin/sh","-c"]
+        args: 
+          -
+            cd /tmp/mnt/liquibase;
+            ls -a;
+            liquibase update --url=jdbc:mariadb://{{.Values.host}}:{{.Values.port}}/{{.Values.dbname}} --username={{.Values.user}} --password={{.Values.passwd}} --defaults-file=liquibase_db.properties;
+        volumeMounts:
+        - mountPath: /tmp/mnt
+          name: liquibase-changelog-volume   
+      initContainers:
+      - name: copy-changelogs
+        image: alpine/git
+        command: ["/bin/sh"]
+        args:  ["-c", "git clone -b TAT-110-Configure-RDS-database-that-will-be-connected-to-the-backed-running-in-the-cluster https://github.com/The-A-Team-organization/illuminati_eks.git /repo; ls -a /repo"]
+        volumeMounts:
+        - mountPath: /repo
+          name: liquibase-changelog-volume
+      restartPolicy: Never
+          # - --url={{.Values.mariadbURL}}
+          # - --username={{.Values.user}}
+          # - --password={{.Values.passwd}}
+          # - --defaults-file=changelogs/liquibase_db.properties
+          # - update

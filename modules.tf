@@ -32,3 +32,29 @@ module "eks_workflow_setup" {
   vpc_id                        = var.vpc_id
   region                        = var.region
 }
+
+module "rds_setup" {
+  source = "./modules/db_setup"
+
+  #---------------------------------------------------------HELM&K8S
+
+  cluster_endpoint              = module.eks_setup.cluster_endpoint
+  cluster_certificate_authority = module.eks_setup.cluster_certificate_authority
+  cluster_token                 = module.eks_setup.cluster_token
+  cluster_name                  = module.eks_setup.cluster_name
+  private_cluster_cidr_block_1  = var.private_subnet_cidr_block_1
+  private_cluster_cidr_block_2  = var.private_subnet_cidr_block_2
+
+  #---------------------------------------------------------DS_VARS
+
+  db_username            = var.db_username
+  db_password            = var.db_password
+  vpc_id                 = var.vpc_id
+  region                 = var.region
+  public_route_table_id  = var.public_route_table_id
+  db_private_subnet_1    = var.db_private_subnet_1
+  db_private_subnet_2    = var.db_private_subnet_2
+  db_availability_zone_1 = var.cluster_availability_zone_1
+  db_availability_zone_2 = var.cluster_availability_zone_2
+
+}

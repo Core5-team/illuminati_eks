@@ -89,3 +89,25 @@ variable "region" {
   description = "The region tag where our eks cluster will be deployed"
   type        = string
 }
+
+#---------------------------------------------------------database_setup
+
+variable "db_username" {
+  description = "An username for master user of RRDS db"
+  type        = string
+}
+
+variable "db_password" {
+  description = "A password for master user of RRDS db"
+  type        = string
+}
+
+variable "db_private_subnet_1" {
+  description = "Private subnet for RDS"
+  type        = string
+}
+
+variable "db_private_subnet_2" {
+  description = "Private subnet for RDS"
+  type        = string
+}
