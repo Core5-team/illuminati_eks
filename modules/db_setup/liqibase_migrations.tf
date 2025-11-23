@@ -21,7 +21,7 @@ resource "helm_release" "liquibase" {
       value = aws_db_instance.illuminati_db.port
     },
     {
-      name  = "dbname"
+      name  = "databaseName"
       value = aws_db_instance.illuminati_db.db_name
     },
     {
@@ -29,7 +29,7 @@ resource "helm_release" "liquibase" {
       value = aws_db_instance.illuminati_db.username
     },
     {
-      name  = "passwd"
+      name  = "password"
       value = aws_db_instance.illuminati_db.password
     }
   ]

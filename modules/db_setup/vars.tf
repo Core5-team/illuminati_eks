@@ -34,12 +34,12 @@ variable "private_cluster_cidr_block_2" {
 #-----------------------------------------------------------------------------------RDS_VARS
 
 variable "db_username" {
-  description = "An username for master user of RRDS db"
+  description = "An username for master user of RDS db"
   type        = string
 }
 
 variable "db_password" {
-  description = "A password for master user of RRDS db"
+  description = "A password for master user of RDS db"
   type        = string
 }
 

@@ -6,9 +6,9 @@ metadata:
 type: Opaque
 stringData:
   host: {{.Values.host | quote}}
-  password: {{.Values.passwd | quote}}
+  password: {{.Values.password | quote}}
   port: {{.Values.port | quote}}
-  dbname: {{.Values.dbname | quote}}
+  databaseName: {{.Values.databaseName | quote}}
   username: {{.Values.user | quote}}
 
 ---
@@ -33,7 +33,7 @@ spec:
           -
             cd /tmp/mnt/liquibase;
             ls -a;
-            liquibase update --url=jdbc:mariadb://{{.Values.host}}:{{.Values.port}}/{{.Values.dbname}} --username={{.Values.user}} --password={{.Values.passwd}} --defaults-file=liquibase_db.properties;
+            liquibase update --url=jdbc:mariadb://{{.Values.host}}:{{.Values.port}}/{{.Values.databaseName}} --username={{.Values.user}} --password={{.Values.password}} --defaults-file=liquibase_db.properties;
         volumeMounts:
         - mountPath: /tmp/mnt
           name: liquibase-changelog-volume   
