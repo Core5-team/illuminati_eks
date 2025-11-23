@@ -41,7 +41,7 @@ spec:
       - name: copy-changelogs
         image: alpine/git
         command: ["/bin/sh"]
-        args:  ["-c", "git clone -b TAT-110-Configure-RDS-database-that-will-be-connected-to-the-backed-running-in-the-cluster https://github.com/The-A-Team-organization/illuminati_eks.git /repo; ls -a /repo"]
+        args:  ["-c", "git clone https://github.com/The-A-Team-organization/illuminati_eks.git /repo; ls -a /repo"]
         volumeMounts:
         - mountPath: /repo
           name: liquibase-changelog-volume
