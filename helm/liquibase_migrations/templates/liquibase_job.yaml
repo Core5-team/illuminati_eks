@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secrets
+  namespace: illuminati
+type: Opaque
+stringData:
+  host: {{.Values.host | quote}}
+  password: {{.Values.password | quote}}
+  port: {{.Values.port | quote}}
+  databaseName: {{.Values.databaseName | quote}}
+  username: {{.Values.user | quote}}
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: liquibase
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      volumes:
+      - name: liquibase-changelog-volume
+        emptyDir:
+          medium: Memory 
+          sizeLimit: 500Mi   
+      containers:
+      - name: liquibase-run
+        image: "liquibase/liquibase:4.25.1"
+        command: ["/bin/sh","-c"]
+        args: 
+          -
+            cd /tmp/mnt/liquibase;
+            ls -a;
+            liquibase update --url=jdbc:mariadb://{{.Values.host}}:{{.Values.port}}/{{.Values.databaseName}} --username={{.Values.user}} --password={{.Values.password}} --defaults-file=liquibase_db.properties;
+        volumeMounts:
+        - mountPath: /tmp/mnt
+          name: liquibase-changelog-volume   
+      initContainers:
+      - name: copy-changelogs
+        image: alpine/git
+        command: ["/bin/sh"]
+        args:  ["-c", "git clone https://github.com/The-A-Team-organization/illuminati_eks.git /repo; ls -a /repo"]
+        volumeMounts:
+        - mountPath: /repo
+          name: liquibase-changelog-volume
+      restartPolicy: Never
