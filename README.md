@@ -5,12 +5,11 @@
 1. EKS Setup Module
 2. EKS Workflow Module
 3. DB Setup Module
-5. How to Run
+4. How to Run
 
 ---
 
-Version of kubernetis is : 1.34
-
+Version of kubernetes is : 1.34
 
 The EKS module sets up the configuration for networking and defines how the EKS cluster will operate.
 
@@ -28,24 +27,24 @@ In the `node_setup` file, we configure the role for the node group and establish
 
 ### EKS Workflow Setup
 
-In the EKS workflow setup, we configure the Cluster Autoscaler by creating a role for it and mapping this role to the service account using pod identity. 
+In the EKS workflow setup, we configure the Cluster Autoscaler by creating a role for it and mapping this role to the service account using pod identity.
 
 To run the Helm chart locally for cluster autoscaler, you should change:
 
-``` 
-repository = "" 
+```
+repository = ""
 ```
 
-to 
+to
 
 ```
-repository = "./helm" 
+repository = "./helm"
 ```
 
 If you're running it from Jenkins, create an external repository (for example, in Amazon ECR), push your Helm chart there, and link it using:
 
 ```
-repository = "your-external-repo-link" 
+repository = "your-external-repo-link"
 ```
 
 The `set` block allows you to configure variables for a Helm chart. You can still use your default values if necessary, but the `set` block has a higher priority.
@@ -72,7 +71,7 @@ To populate the database with data, we run a Helm chart containing the Liquibase
 
 To make it possible to run migration, we configured the main EKS workflow file by passing the output from previous module, including the cluster name and credentials for the cluster, and established kube config inside the Helm provider.
 
---- 
+---
 
 This overview outlines the essential components for setting up and managing an EKS cluster with a database and Helm charts.
 
