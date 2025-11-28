@@ -128,3 +128,4 @@ Additionally, add the `--var-file={file-name}.tfvars` flag to the commands in th
 1. plan
 2. apply
 3. init
+
