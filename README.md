@@ -9,7 +9,7 @@
 
 ---
 
-Version of Kubernetes is 1.34
+The version of Kubernetes is 1.34
 
 The EKS module sets up the configuration for networking and defines how the EKS cluster will operate.
 
@@ -17,7 +17,7 @@ In the `cluster_subnets.tf` file, we create four subnets—two private and two p
 
 In the `cluster_nat.tf` file, we create a NAT gateway to ensure that the nodes have access to the internet.
 
-The `cluster_addons.tf` file includes all necessary addons that will useful with managing of our cluster like metric server or pod identity.
+The `cluster_addons.tf` file includes all necessary addons that will be useful for managing our cluster, like the **metric server** or **pod identity**.
 
 In the `cluster_setup.tf`, we configure the policy and role. To enable the attaching of IAM roles to the Kubernetes role, we set the authentication mode to "API". Additionally, the user who creates the cluster automatically gains an admin role in the cluster.
 
@@ -69,7 +69,7 @@ To populate the database with data, we run a Helm chart containing the Liquibase
 2. Then, the Liquibase container runs migrations on our database, creating a new table and adding primary data, such as the entry password or the first user.
 3. Additionally, it creates a Secret resource that will later be used by the backend deployment to retrieve database secrets.
 
-To make it possible to run migration, we configured the main EKS workflow file by passing the output from previous module, including the cluster name and credentials for the cluster, and established kube config inside the Helm provider.
+To make it possible to run migration, we configured the main EKS workflow file by passing the output from the previous module, including the cluster name and credentials for the cluster, and established the kube config inside the Helm provider.
 
 ---
 
