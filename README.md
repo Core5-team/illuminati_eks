@@ -9,7 +9,7 @@
 
 ---
 
-Version of kubernetes is : 1.34
+Version of Kubernetes is 1.34
 
 The EKS module sets up the configuration for networking and defines how the EKS cluster will operate.
 
