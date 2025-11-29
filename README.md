@@ -9,9 +9,12 @@
 
 ---
 
-### EKS Setup Module
+>This overview outlines the essential components for setting up and managing an EKS cluster with a database and Helm charts.
 
-The version of Kubernetes is 1.34
+>The version of Kubernetes is 1.34
+---
+
+### EKS Setup Module
 
 The EKS module sets up the configuration for networking and defines how the EKS cluster will operate.
 
@@ -29,29 +32,31 @@ In the `node_setup` file, we configure the role for the node group and establish
 
 ### EKS Workflow Setup
 
-In the EKS workflow setup, we configure the Cluster Autoscaler by creating a role for it and mapping this role to the service account using pod identity.
+In the EKS workflow setup, we configure the **Cluster Autoscaler** and the **AWS Load Balancer Controller** by creating a role for them and mapping this role to the service account using pod identity.
 
-To run the Helm chart locally for cluster autoscaler, you should change:
+To run the Helm charts locally for your cluster management services, you need to change:
 
 ```
 repository = ""
 ```
 
-to
+to:
 
 ```
 repository = "./helm"
 ```
 
-If you're running it from Jenkins, create an external repository (for example, in Amazon ECR), push your Helm chart there, and link it using:
+If you are running it from Jenkins, create an external repository (for example, in Amazon ECR), push your Helm chart there, and link it using:
 
 ```
 repository = "your-external-repo-link"
 ```
 
-The `set` block allows you to configure variables for a Helm chart. You can still use your default values if necessary, but the `set` block has a higher priority.
+#### Custom values for helm chart
 
-The setup for the Load Balancer Controller is similar to that of the Cluster Autoscaler, but the file containing permissions is stored in the root folder.
+Typically, Helm charts can operate with default values specified in the `values.yaml` file located in the root of the chart folder. However, if there are no values provided in this file, you can use a custom values file or pass values using the `set` block in Terraform.
+
+The `set` block allows you to configure variables for a Helm chart. You can still utilize the default values if needed, but the `set` block takes precedence.
 
 ---
 
@@ -73,9 +78,7 @@ To populate the database with data, we run a Helm chart containing the Liquibase
 
 To make it possible to run migration, we configured the main EKS workflow file by passing the output from the previous module, including the cluster name and credentials for the cluster, and established the kube config inside the Helm provider.
 
----
-
-This overview outlines the essential components for setting up and managing an EKS cluster with a database and Helm charts.
+The Liquibase job runs automatically after the database has been created.
 
 ---
 
@@ -88,12 +91,12 @@ Here is a template you can use for the `.tfvars` file:
 ```hcl
 #--------------------------------------------------------- Availability Zones
 
-cluster_availability_zone_1 = ""
+cluster_availability_zone_1 = "" # Like eu-central-1a 
 cluster_availability_zone_2 = ""
-private_subnet_cidr_block_1 = "10.0.2.0/24"
-private_subnet_cidr_block_2 = "10.0.3.0/24"
-public_subnet_cidr_block_1  = "10.0.4.0/24"
-public_subnet_cidr_block_2  = "10.0.5.0/24"
+private_subnet_cidr_block_1 = "" # Like 10.0.2.0/24
+private_subnet_cidr_block_2 = ""
+public_subnet_cidr_block_1  = ""
+public_subnet_cidr_block_2  = ""
 
 #--------------------------------------------------------- Node Group Autoscaling Config
 
@@ -103,8 +106,8 @@ desired_size = 1
 
 #--------------------------------------------------------- Cluster Configuration Variables
 
-eks_cluster_name        = "illuminati_app_cluster"
-environment_name        = ""
+eks_cluster_name        = "" # Like illuminati_app_cluster
+environment_name        = "" # Like dev, stage or prod
 eks_cluster_k8s_version = "1.34"
 
 #--------------------------------------------------------- Nodes Configuration Variables
@@ -113,15 +116,15 @@ node_instance_types = ["t3.small"]
 
 #--------------------------------------------------------- Workflow Setup
 
-region                = ""
-vpc_id                = ""
-public_route_table_id = ""
+region                = "" # Like eu-central-1
+vpc_id                = "" # Like vpc-xxxxxxxxxxxxxxxxx 
+public_route_table_id = "" # Like rtb-xxxxxxxxxxxxxxxxx 
 
 #--------------------------------------------------------- Database Setup
 
-db_username         = ""
-db_password         = ""
-db_private_subnet_1 = ""
+db_username         = "" 
+db_password         = "" # The password should consist of at least 8 characters.
+db_private_subnet_1 = "" # Like 10.0.2.0/24
 db_private_subnet_2 = ""
 ```
 
