@@ -58,6 +58,8 @@
     "oleh",
     "oleksandr",
     "taras",
-    "VARCHAR"
+    "VARCHAR",
+    "hostnames",
+    "tfvars"
   ]
 }
