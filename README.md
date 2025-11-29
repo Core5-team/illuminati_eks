@@ -9,9 +9,10 @@
 
 ---
 
->This overview outlines the essential components for setting up and managing an EKS cluster with a database and Helm charts.
+> This overview outlines the essential components for setting up and managing an EKS cluster with a database and Helm charts.
 
->The version of Kubernetes is 1.34
+> The version of Kubernetes is 1.34
+
 ---
 
 ### EKS Setup Module
@@ -91,7 +92,7 @@ Here is a template you can use for the `.tfvars` file:
 ```hcl
 #--------------------------------------------------------- Availability Zones
 
-cluster_availability_zone_1 = "" # Like eu-central-1a 
+cluster_availability_zone_1 = "" # Like eu-central-1a
 cluster_availability_zone_2 = ""
 private_subnet_cidr_block_1 = "" # Like 10.0.2.0/24
 private_subnet_cidr_block_2 = ""
@@ -117,12 +118,12 @@ node_instance_types = ["t3.small"]
 #--------------------------------------------------------- Workflow Setup
 
 region                = "" # Like eu-central-1
-vpc_id                = "" # Like vpc-xxxxxxxxxxxxxxxxx 
-public_route_table_id = "" # Like rtb-xxxxxxxxxxxxxxxxx 
+vpc_id                = "" # Like vpc-xxxxxxxxxxxxxxxxx
+public_route_table_id = "" # Like rtb-xxxxxxxxxxxxxxxxx
 
 #--------------------------------------------------------- Database Setup
 
-db_username         = "" 
+db_username         = ""
 db_password         = "" # The password should consist of at least 8 characters.
 db_private_subnet_1 = "" # Like 10.0.2.0/24
 db_private_subnet_2 = ""
