@@ -9,6 +9,8 @@
 
 ---
 
+### EKS Setup Module
+
 The version of Kubernetes is 1.34
 
 The EKS module sets up the configuration for networking and defines how the EKS cluster will operate.
@@ -57,7 +59,7 @@ The setup for the Load Balancer Controller is similar to that of the Cluster Aut
 
 The database name is `illuminates`, which is a result of a typographical error in the Liquibase migrations, even though the project is named "illuminati." This name should be corrected in the future, but for now, we will continue with the current state of the project.
 
-We are using MariaDB as the database engine (version 10.11). Although the DB instance is currently located in a public route table, its security rules restrict inbound connections only from the node group. This may change in the future.
+We are using MariaDB as the database engine (version 10.11). Although the DB instance is currently located in a public route table, its security rules restrict inbound connections to accept only from the node group. This may change in the future.
 
 If you need to connect to the database from a management tool, you must add your IP to the rules and enable DNS resolution and hostnames in the VPC settings.
 
