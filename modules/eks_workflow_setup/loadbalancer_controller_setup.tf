@@ -39,7 +39,7 @@ resource "aws_eks_pod_identity_association" "aws_lbc" {
 resource "helm_release" "aws_loadbalancer_controller" {
   name = "aws-loadbalancer-controller"
 
-  repository = "./helm/"
+  repository = ""
   chart      = "aws_loadbalancer_controller"
   version    = "0.1.0"
   namespace  = "kube-system"
