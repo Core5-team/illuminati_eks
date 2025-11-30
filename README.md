@@ -23,8 +23,6 @@ In the `cluster_subnets.tf` file, we create four subnets—two private and two p
 
 In the `cluster_nat.tf` file, we create a NAT gateway to ensure that the nodes have access to the internet.
 
-The `cluster_addons.tf` file includes all necessary addons that will be useful for managing our cluster, like the **metric server** or **pod identity**.
-
 In the `cluster_setup.tf`, we configure the policy and role. To enable the attaching of IAM roles to the Kubernetes role, we set the authentication mode to "API". Additionally, the user who creates the cluster automatically gains an admin role in the cluster.
 
 In the `node_setup` file, we configure the role for the node group and establish the rules for the autoscaling group.
@@ -32,6 +30,12 @@ In the `node_setup` file, we configure the role for the node group and establish
 ---
 
 ### EKS Workflow Setup
+
+#### Addons instalation
+
+The `cluster_addons.tf` file includes all necessary addons that will be useful for managing our cluster, like the **metric server** or **pod identity**.
+
+#### Cluster Autoscaler and the AWS Load Balancer Controller
 
 In the EKS workflow setup, we configure the **Cluster Autoscaler** and the **AWS Load Balancer Controller** by creating a role for them and mapping this role to the service account using pod identity.
 
@@ -134,3 +138,9 @@ Additionally, add the `--var-file={file-name}.tfvars` flag to the commands in th
 1. plan
 2. apply
 3. init
+
+If you want to run the EKS cluster creation for different accounts you can use :
+
+```
+export AWS_PROFILE=your_profile_name 
+```

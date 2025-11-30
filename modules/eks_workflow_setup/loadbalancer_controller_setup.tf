@@ -36,21 +36,6 @@ resource "aws_eks_pod_identity_association" "aws_lbc" {
   role_arn        = aws_iam_role.aws_lbc.arn
 }
 
-resource "null_resource" "cert_manager" {
-
-  provisioner "local-exec" {
-    command = "make cert_manager_setup"
-    environment = {
-      REGION  = join(" ", [var.region])
-      CLUSTER = join(" ", [var.cluster_name])
-    }
-
-  }
-
-  depends_on = [aws_eks_pod_identity_association.aws_lbc]
-
-}
-
 resource "helm_release" "aws_loadbalancer_controller" {
   name = "aws-loadbalancer-controller"
 
@@ -74,5 +59,5 @@ resource "helm_release" "aws_loadbalancer_controller" {
     }
   ]
 
-  depends_on = [null_resource.cert_manager]
+  depends_on = [aws_eks_addon.cert_manager]
 }
