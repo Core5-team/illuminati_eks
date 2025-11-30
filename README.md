@@ -31,7 +31,7 @@ In the `node_setup` file, we configure the role for the node group and establish
 
 ### EKS Workflow Setup
 
-#### Addons instalation
+#### Addons installation
 
 The `cluster_addons.tf` file includes all necessary addons that will be useful for managing our cluster, like the **metric server** or **pod identity**.
 
@@ -142,5 +142,5 @@ Additionally, add the `--var-file={file-name}.tfvars` flag to the commands in th
 If you want to run the EKS cluster creation for different accounts you can use :
 
 ```
-export AWS_PROFILE=your_profile_name 
+export AWS_PROFILE=your_profile_name
 ```
