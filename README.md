@@ -139,7 +139,7 @@ Additionally, add the `--var-file={file-name}.tfvars` flag to the commands in th
 2. apply
 3. init
 
-If you want to run the EKS cluster creation for different accounts you can use :
+If you want to run the EKS cluster creation for different accounts, you can use :
 
 ```
 export AWS_PROFILE=your_profile_name 
