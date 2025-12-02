@@ -20,7 +20,7 @@ resource "aws_security_group" "rds_sg" {
 
 resource "aws_db_subnet_group" "my_db_subnet_group" {
   name       = "illuminati-db-subnet-group"
-  subnet_ids = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
+  subnet_ids = [aws_subnet.db_private_subnet_1.id, aws_subnet.db_private_subnet_2.id]
 
   tags = {
     Name = "My DB Subnet Group"
