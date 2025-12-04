@@ -22,6 +22,6 @@ resource "aws_eks_addon" "external_dns" {
   cluster_name  = var.cluster_name
   addon_name    = "external-dns"
   addon_version = "v0.19.0-eksbuild.3"
-  depends_on    = [helm_release.aws_loadbalancer_controller]
+  service_account_role_arn =  aws_iam_role.external_dns.arn
+  depends_on    = [helm_release.aws_loadbalancer_controller]  
 }
-

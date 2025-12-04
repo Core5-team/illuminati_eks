@@ -2,6 +2,7 @@
 
 development_varibles.tfvars
 .terraform
+.dev.tfvars
 
 helm/ingress_controller/
 

@@ -29,3 +29,12 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "domain_name" {
+  description = "Domain name for Route53 hosted zone"
+  type        = string
+}
+
+variable "environment_name" {
+  description = "Environment name (dev, stage, prod)"
+  type        = string
+}

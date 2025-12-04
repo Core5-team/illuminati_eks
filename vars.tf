@@ -90,6 +90,17 @@ variable "region" {
   type        = string
 }
 
+variable "domain_name" {
+  description = "Domain name for Route53 hosted zone"
+  type        = string
+}
+
+
+variable "existing_nat_gateway_id" {
+  description = "ID of existing NAT Gateway"
+  type        = string
+}
+
 #---------------------------------------------------------database_setup
 
 variable "db_username" {
@@ -111,3 +122,4 @@ variable "db_private_subnet_2" {
   description = "Private subnet for RDS"
   type        = string
 }
+

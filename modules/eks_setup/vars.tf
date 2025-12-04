@@ -33,6 +33,12 @@ variable "public_subnet_cidr_block_2" {
   type        = string
 }
 
+
+variable "existing_nat_gateway_id" {
+  description = "ID of existing NAT Gateway"
+  type        = string
+}
+
 #---------------------------------------------------------node_group_autoscaling_config
 
 variable "min_size" {

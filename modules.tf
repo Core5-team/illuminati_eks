@@ -21,6 +21,7 @@ module "eks_setup" {
   vpc_id                = var.vpc_id
   public_route_table_id = var.public_route_table_id
   region                = var.region
+  existing_nat_gateway_id = var.existing_nat_gateway_id
 }
 
 module "eks_workflow_setup" {
@@ -31,6 +32,8 @@ module "eks_workflow_setup" {
   cluster_name                  = module.eks_setup.cluster_name
   vpc_id                        = var.vpc_id
   region                        = var.region
+  domain_name                   = var.domain_name
+  environment_name              = var.environment_name
 }
 
 module "rds_setup" {
