@@ -3,6 +3,6 @@
 development_varibles.tfvars
 .terraform
 .dev.tfvars
-
+.terraform.tfstate.backup
 helm/ingress_controller/
 
