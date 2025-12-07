@@ -6,7 +6,7 @@ resource "aws_route53_zone" "main" {
     Name        = "${var.cluster_name}-zone"
   }
   lifecycle {
-    prevent_destroy = true 
+    prevent_destroy = false 
   }
 }
 
@@ -62,4 +62,5 @@ resource "aws_eks_pod_identity_association" "external_dns" {
   namespace       = "kube-system"
   service_account = "external-dns"
   role_arn        = aws_iam_role.external_dns.arn
+
 }
