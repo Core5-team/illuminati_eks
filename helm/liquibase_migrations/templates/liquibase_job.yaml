@@ -42,8 +42,9 @@ spec:
       - name: copy-changelogs
         image: alpine/git
         command: ["/bin/sh"]
-        args:  ["-c", "git clone https://github.com/The-A-Team-organization/illuminati_eks.git /repo; ls -a /repo"]
+        args:  ["-c", "git clone --branch CORE5-18--test-for-jenkins https://github.com/Core5-team/illuminati_eks.git /repo; ls -a /repo"]
         volumeMounts:
         - mountPath: /repo
           name: liquibase-changelog-volume
       restartPolicy: Never
+
