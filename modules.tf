@@ -62,16 +62,17 @@ module "rds_setup" {
 
 }
 
-module "backend_irsa_s3" {
-  source = "./modules/irsa_s3_bucket"
+#module "backend_irsa_s3" {
+#  source = "./modules/irsa_s3_bucket"
+#
+#  cluster_name                  = module.eks_setup.cluster_name
+#  cluster_endpoint              = module.eks_setup.cluster_endpoint
+#  cluster_certificate_authority = module.eks_setup.cluster_certificate_authority
+#  cluster_token                 = module.eks_setup.cluster_token
+#
+#  bucket_name          = "illuminati-backend-images"
+#  namespace            = "illuminati"
+#  service_account_name = "backend-sa"
+#  role_name            = "illuminati-backend-irsa-role"
+#}
 
-  cluster_name                  = module.eks_setup.cluster_name
-  cluster_endpoint              = module.eks_setup.cluster_endpoint
-  cluster_certificate_authority = module.eks_setup.cluster_certificate_authority
-  cluster_token                 = module.eks_setup.cluster_token
-
-  bucket_name          = "illuminati-backend-images"
-  namespace            = "illuminati"
-  service_account_name = "backend-sa"
-  role_name            = "illuminati-backend-irsa-role"
-}
