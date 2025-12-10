@@ -6,6 +6,12 @@ data "aws_eks_cluster_auth" "cluster" {
   name = data.aws_eks_cluster.cluster.name
 }
 
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
+}
+
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
   acl    = "private"
@@ -53,4 +59,19 @@ resource "aws_iam_role_policy" "s3_policy" {
       ]
     }]
   })
+}
+
+resource "kubernetes_config_map" "backend_irsa" {
+  depends_on = [
+    aws_iam_role.irsa_role
+  ]
+
+  metadata {
+    name      = "backend-irsa"
+    namespace = "illuminati"
+  }
+
+  data = {
+    irsaRoleArn = aws_iam_role.irsa_role.arn
+  }
 }
