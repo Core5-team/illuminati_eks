@@ -23,6 +23,11 @@ variable "role_name" {
   description = "Name of the IAM role for IRSA"
 }
 
+variable "oidc_issuer" {
+  description = "OIDC issuer URL of the EKS cluster"
+  type        = string
+}
+
 variable "cluster_endpoint" {}
 variable "cluster_certificate_authority" {}
 variable "cluster_token" {}
