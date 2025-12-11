@@ -19,13 +19,19 @@ resource "aws_s3_bucket" "bucket" {
 
 data "aws_caller_identity" "current" {}
 
+resource "aws_iam_openid_connect_provider" "eks" {
+  url = var.oidc_issuer
+  client_id_list = ["sts.amazonaws.com"]
+  thumbprint_list = ["D7D10AC1FD7E87F1A3787A9A8BE9B0F8538EC059"]
+}
+
 data "aws_iam_policy_document" "irsa_trust" {
   statement {
     effect = "Allow"
 
     principals {
       type        = "Federated"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${local.oidc_host}"]
+      identifiers = [aws_iam_openid_connect_provider.eks.arn]
     }
 
     actions = ["sts:AssumeRoleWithWebIdentity"]
