@@ -69,11 +69,13 @@ module "backend_irsa_s3" {
   cluster_endpoint              = module.eks_setup.cluster_endpoint
   cluster_certificate_authority = module.eks_setup.cluster_certificate_authority
   cluster_token                 = module.eks_setup.cluster_token
+  oidc_issuer                   = module.eks_setup.oidc_issuer
 
   bucket_name          = "illuminati-backend-images"
   namespace            = "illuminati"
   service_account_name = "backend-sa"
   role_name            = "illuminati-backend-irsa-role"
 }
+
 
 
