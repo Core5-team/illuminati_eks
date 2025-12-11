@@ -1,25 +1,14 @@
-data "aws_eks_cluster" "cluster" {
-  name = var.cluster_name
-}
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = data.aws_eks_cluster.cluster.name
-}
-
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   token                  = data.aws_eks_cluster_auth.cluster.token
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
 }
 
-resource "aws_s3_bucket" "bucket" {
-  bucket = var.bucket_name
-  acl    = "private"
-
-  tags = {
-    Name = var.bucket_name
-  }
+locals {
+  oidc_host = replace(var.oidc_issuer, "https://", "")
 }
+
+data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "irsa_trust" {
   statement {
@@ -27,14 +16,14 @@ data "aws_iam_policy_document" "irsa_trust" {
 
     principals {
       type        = "Federated"
-      identifiers = [data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${local.oidc_host}"]
     }
 
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
     condition {
       test     = "StringEquals"
-      variable = "${replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")}:sub"
+      variable = "${local.oidc_host}:sub"
       values   = ["system:serviceaccount:${var.namespace}:${var.service_account_name}"]
     }
   }
@@ -59,6 +48,15 @@ resource "aws_iam_role_policy" "s3_policy" {
       ]
     }]
   })
+}
+
+resource "aws_s3_bucket" "bucket" {
+  bucket = var.bucket_name
+  acl    = "private"
+
+  tags = {
+    Name = var.bucket_name
+  }
 }
 
 resource "kubernetes_config_map" "backend_irsa" {
