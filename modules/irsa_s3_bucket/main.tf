@@ -83,7 +83,7 @@ resource "kubernetes_secret" "s3_config" {
 
   data = {
     AWS_S3_BUCKET_NAME = aws_s3_bucket.bucket.bucket
-    AWS_S3_REGION      = var.aws_region
+    AWS_S3_REGION      = var.region
   }
 
   type = "Opaque"
