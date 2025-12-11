@@ -28,6 +28,11 @@ variable "oidc_issuer" {
   type        = string
 }
 
+variable "region" {
+  type        = string
+  description = "AWS region for the S3 bucket"
+}
+
 variable "cluster_endpoint" {}
 variable "cluster_certificate_authority" {}
 variable "cluster_token" {}
