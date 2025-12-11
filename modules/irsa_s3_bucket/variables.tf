@@ -22,3 +22,7 @@ variable "role_name" {
   type        = string
   description = "Name of the IAM role for IRSA"
 }
+
+variable "cluster_endpoint" {}
+variable "cluster_certificate_authority" {}
+variable "cluster_token" {}
