@@ -1,11 +1,20 @@
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
+  host                   = var.cluster_endpoint
+  token                  = var.cluster_token
+  cluster_ca_certificate = base64decode(var.cluster_certificate_authority)
 }
 
 locals {
   oidc_host = replace(var.oidc_issuer, "https://", "")
+}
+
+resource "aws_s3_bucket" "bucket" {
+  bucket = var.bucket_name
+  acl    = "private"
+
+  tags = {
+    Name = var.bucket_name
+  }
 }
 
 data "aws_caller_identity" "current" {}
@@ -50,14 +59,6 @@ resource "aws_iam_role_policy" "s3_policy" {
   })
 }
 
-resource "aws_s3_bucket" "bucket" {
-  bucket = var.bucket_name
-  acl    = "private"
-
-  tags = {
-    Name = var.bucket_name
-  }
-}
 
 resource "kubernetes_config_map" "backend_irsa" {
   depends_on = [
