@@ -27,14 +27,14 @@ data "aws_iam_policy_document" "irsa_trust" {
 
     principals {
       type        = "Federated"
-      identifiers = [data.aws_eks_cluster.cluster.identity[0].oidc.issuer]
+      identifiers = [data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer]
     }
 
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
     condition {
       test     = "StringEquals"
-      variable = "${replace(data.aws_eks_cluster.cluster.identity[0].oidc.issuer,"https://","")}:sub"
+      variable = "${replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")}:sub"
       values   = ["system:serviceaccount:${var.namespace}:${var.service_account_name}"]
     }
   }
