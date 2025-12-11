@@ -59,18 +59,12 @@ resource "aws_iam_role_policy" "s3_policy" {
   })
 }
 
-
-resource "kubernetes_config_map" "backend_irsa" {
-  depends_on = [
-    aws_iam_role.irsa_role
-  ]
-
+resource "kubernetes_service_account" "backend" {
   metadata {
-    name      = "backend-irsa"
-    namespace = "illuminati"
-  }
-
-  data = {
-    irsaRoleArn = aws_iam_role.irsa_role.arn
+    name      = var.service_account_name
+    namespace = var.namespace
+    annotations = {
+      "eks.amazonaws.com/role-arn" = aws_iam_role.irsa_role.arn
+    }
   }
 }
