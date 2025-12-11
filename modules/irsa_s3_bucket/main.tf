@@ -74,3 +74,17 @@ resource "kubernetes_service_account" "backend" {
     }
   }
 }
+
+resource "kubernetes_secret" "s3_config" {
+  metadata {
+    name      = "s3-config"
+    namespace = var.namespace
+  }
+
+  data = {
+    AWS_S3_BUCKET_NAME = aws_s3_bucket.bucket.bucket
+    AWS_S3_REGION      = var.aws_region
+  }
+
+  type = "Opaque"
+}
