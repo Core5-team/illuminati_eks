@@ -75,7 +75,9 @@ module "backend_irsa_s3" {
   namespace            = "illuminati"
   service_account_name = "backend-sa"
   role_name            = "illuminati-backend-irsa-role"
+  region               = var.region
 }
+
 
 
 
