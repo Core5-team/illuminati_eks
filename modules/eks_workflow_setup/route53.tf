@@ -6,7 +6,7 @@ resource "aws_route53_zone" "main" {
     Name        = "${var.cluster_name}-zone"
   }
   lifecycle {
-    prevent_destroy = true 
+    
   }
 }
 

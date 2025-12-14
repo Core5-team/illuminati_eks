@@ -26,10 +26,10 @@ node_instance_types = ["t3.small"]
 #--------------------------------------------------------- Workflow Setup
 
 region                = "us-east-1" # Like eu-central-1
-vpc_id                = "vpc-01801d31a7562ff18" # Like vpc-xxxxxxxxxxxxxxxxx
-public_route_table_id = "rtb-00ac9dff63f298749" # Like rtb-xxxxxxxxxxxxxxxxx
+vpc_id                = "vpc-083267667a7e838d8" # Like vpc-xxxxxxxxxxxxxxxxx
+public_route_table_id = "rtb-03375892e94814afe" # Like rtb-xxxxxxxxxxxxxxxxx
 domain_name           = "illuminati-core5.pp.ua" # Like example.com
-existing_nat_gateway_id = "nat-0354fb0a689f7d188"
+existing_nat_gateway_id = "nat-061738e5a39a6bab8"
 
 #--------------------------------------------------------- Database Setup
 

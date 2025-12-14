@@ -71,6 +71,11 @@ resource "helm_release" "cluster_autoscaler" {
   version    = "0.1.0"
   namespace  = "kube-system"
 
+  timeout            = 900   
+  wait               = true
+  wait_for_jobs      = true
+  dependency_update  = true
+
   set = [{
     name  = "serviceAccountName"
     value = "cluster-autoscaler"

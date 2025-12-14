@@ -11,6 +11,10 @@ resource "helm_release" "liquibase" {
   version    = "0.1.0"
   namespace  = "liquibase-migrations"
 
+   timeout            = 900   
+  wait               = true
+  wait_for_jobs      = true
+
   set = [
     {
       name  = "host"
